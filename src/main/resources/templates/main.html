@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ShareURL - 메인 페이지</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    header {
+      background-color: #1DA1F2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+    .sidebar {
+      width: 200px;
+      padding: 20px;
+    }
+    .sidebar img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      margin-bottom: 30px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #1DA1F2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .hashtags {
+      margin-bottom: 20px;
+    }
+    .tag {
+      display: inline-block;
+      background-color: #e1ecf4;
+      color: #39739d;
+      padding: 6px 12px;
+      margin: 5px 5px 0 0;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .message-box {
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+    .message-box a {
+      font-size: 18px;
+      color: #1DA1F2;
+      text-decoration: none;
+    }
+    .message-box p {
+      margin: 8px 0;
+    }
+    .bookmark {
+      color: #999;
+      float: right;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  URL 공유소
+</header>
+
+<div class="container">
+  <div class="sidebar">
+    <label for="imageUpload">
+      <img src="/images/default-profile.png" alt="프로필 아이콘">
+    </label>
+    <input type="file" id="imageUpload" style="display: none">
+  </div>
+
+  <div class="content">
+    <form th:action="@{/post}" method="post">
+      <input class="input-field" type="text" name="postUrl" placeholder="공유할 URL을 입력하세요" required>
+      <input class="input-field" type="text" name="title" placeholder="해시태그 입력 (예: 감동, 유머 등)">
+      <button type="submit">공유하기</button>
+    </form>
+
+    <div class="hashtags">
+      <span class="tag">#감동</span>
+      <span class="tag">#유머</span>
+      <span class="tag">#음악</span>
+      <span class="tag">#지식</span>
+    </div>
+
+    <div class="message-box">
+      <span class="bookmark">&#9734;</span>
+      <p><a href="https://www.youtube.com/watch?v=abc123" target="_blank">https://www.youtube.com/watch?v=abc123</a></p>
+      <p>해시태그: #감동 #음악</p>
+    </div>
+
+    <!-- 반복 렌더링 예시 -->
+    <!--
+    <div th:each="post : ${posts}" class="message-box">
+        <span class="bookmark">&#9734;</span>
+        <p><a th:href="${post.postUrl}" th:text="${post.postUrl}" target="_blank"></a></p>
+        <p th:text="'해시태그: ' + ${post.title}"></p>
+    </div>
+    -->
+  </div>
+</div>
+</body>
+</html>

@@ -1,9 +1,6 @@
 package com.example.shareurl.post.controller;
 
-import com.example.shareurl.hashtag.dto.RequestHashTagDto;
-import com.example.shareurl.hashtag.dto.ResponseHashTagDto;
 import org.springframework.ui.Model;
-import java.util.List;
 import com.example.shareurl.post.dto.RequestPostDto;
 import com.example.shareurl.post.dto.ResponsePostDto;
 import com.example.shareurl.post.service.PostService;
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/postForm")
+@RequestMapping("/shareurl")
 
 public class PostController {
 
@@ -25,30 +22,24 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping
-    public String creatPost(@ModelAttribute RequestPostDto requestPostDto, Model model) {
+    @PostMapping("/post")
+    public String createPost(@ModelAttribute RequestPostDto requestPostDto) {
         postService.savePost(requestPostDto);
-        return "redirect:/post/page";
-    }
-
-    @PostMapping
-    public String creatHashTag(@ModelAttribute RequestHashTagDto requestHashTagDto, Model model) {
-        postService.postHashTag(requestHashTagDto);
-        return "redirect:/post/page";
-    }
-
-    @GetMapping("/page") //취소를 눌렀을 때 이걸로 이동시켜야됨
-    public String getPage(@PageableDefault(size = 10, direction = Sort.Direction.DESC) Pageable pageable, Model model) throws Exception {
-        Page<ResponsePostDto> posts = postService.getPage(pageable);
-        model.addAttribute("posts", posts);
-        return "redirect:/post/page";
+        return "redirect:/main";
     }
 
     @PutMapping("/{id}")
     public String putPost(
             @PathVariable Long id,
-            @ModelAttribute RequestPostDto requestPostDto, Model model) {
+            @ModelAttribute RequestPostDto requestPostDto) {
         postService.updatePost(id, requestPostDto);
-        return "redirect:/post/page";
+        return "redirect:/main";
     }
+
+    @DeleteMapping("/{id}")
+    public String deletePost(@PathVariable Long id, @ModelAttribute RequestPostDto requestPostDto) {
+        postService.deletePostService(id, requestPostDto);
+        return "redirect:/main";
+    }
+
 }

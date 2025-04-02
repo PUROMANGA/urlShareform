@@ -11,6 +11,6 @@ public class ResponseHashTagDto {
 
     public ResponseHashTagDto(HashTag hashTag) {
         this.id = hashTag.getId();
-        this.hashTag = hashTag.getHashTag();
+//        this.hashTag = hashTag.getHashTag();
     }
 }
