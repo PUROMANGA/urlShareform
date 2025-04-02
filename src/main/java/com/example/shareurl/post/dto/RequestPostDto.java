@@ -6,7 +6,5 @@ import lombok.Getter;
 @Getter
 
 public class RequestPostDto {
-    private String title;
     private String postUrl;
-    private HashTag hashTag;
 }

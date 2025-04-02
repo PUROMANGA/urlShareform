@@ -19,30 +19,22 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final HashTagRepository hashTagRepository;
 
-    public PostService(PostRepository postRepository, HashTagRepository hashTagRepository) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.hashTagRepository = hashTagRepository;
     }
 
     public void savePost(RequestPostDto requestPostDto) {
-        Post post = new Post(requestPostDto);
-        postRepository.save(post);
-    }
-
-    public Page<ResponsePostDto> getPage(Pageable pageable) {
-        Page<Post> posts = postRepository.findAll(pageable);
-        return posts.map(ResponsePostDto::new);
-    }
-
-    public void postHashTag(RequestHashTagDto requestHashTagDto) {
-        HashTag madeHashTag = new HashTag(requestHashTagDto);
-        hashTagRepository.save(madeHashTag);
+        postRepository.save(new Post(requestPostDto));
     }
 
     public void updatePost(Long id, RequestPostDto requestPostDto) {
         Post findPost = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         findPost.update(requestPostDto);
+    }
+
+    public void deletePostService(Long id, RequestPostDto requestPostDto) {
+        Post findPost = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        postRepository.delete(findPost);
     }
 }

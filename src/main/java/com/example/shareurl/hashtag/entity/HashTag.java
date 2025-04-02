@@ -1,6 +1,5 @@
 package com.example.shareurl.hashtag.entity;
 
-import com.example.shareurl.hashtag.dto.RequestHashTagDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,9 +17,7 @@ public class HashTag {
     private Long id;
 
     @Column
-    private String hashTag;
+    private String hashTagName;
 
-    public HashTag(RequestHashTagDto requestHashTagDto) {
-        this.hashTag = requestHashTagDto.getHashTag();
-    }
+    //해시태그 정의, 해시태그 crud
 }
